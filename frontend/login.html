@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+    <link rel="stylesheet" href="main.css">
+    <link id="theme" rel="stylesheet" href="light.css">
+    <script src="footer.js" type="text/javascript" defer></script>
+    <script src="theme.js"></script>
+  </head>
+  <body>
+  <section class="section section1">
+    <div class="container">
+        <div id="popup" class="successPopup2">Successfully Logged In, Redirecting...</div>
+        <div class="titleContainer">
+            <h1 class="title maintitle2" id="welcometext">Login:</h1>
+            <div>
+                <button onclick="location.href = 'index.html';">Return</button>
+            </div>
+          </div>
+        <form onsubmit="return false" id="form">
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username">
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password">
+                <p id="errormsg" class="error"></p>
+            </div>
+                <button style="margin-left: 1rem;" type="submit">Login</button>
+            </form>
+            <div class="input-group">
+                <a onclick="location.href = 'signup.html';">No account?, Signup</a>
+            </div>
+            </div>
+       </form>
+    </div>
+  </section>
+  <footer-component></footer-component>
+  <script src="./dist/main.js" type="text/javascript"></script>
+    <script type="module">
+        import { loginapi } from '/keys.js'; 
+        const form = document.querySelector('#form')
+        const username = document.querySelector('#username');
+        const password = document.querySelector('#password');
+
+        function popupFade(element){
+            element.classList.remove("fadeOut");
+            element.classList.add("fadeIn");
+            setTimeout(() => {
+                element.classList.remove("fadeIn");   
+                element.classList.add("fadeOut");     
+            }, 1000);
+        }
+
+        form.addEventListener('submit',(e)=>{
+            if(!validateInputs()){
+                e.preventDefault();
+            }
+            else{ 
+                fetch(loginapi + `${username.value.trim()}/${password.value.trim()}?`)
+                .then((response) => response.text()) // Fetch response as plain text
+                .then((data) => {
+                    if (data.slice(0,4) === 'True'){
+                        let key = data.slice(6);
+                        sessionStorage.setItem("key", key);
+                        sessionStorage.setItem("username", username.value.trim());
+                        setSuccess();
+                        setTimeout(() => {
+                            window.location.replace("main.html");
+                        }, 1000);
+                    }
+                    else if (data.slice(0,5) === 'False'){
+                        setError("Login Details Incorrect");
+                    }
+                })
+            }
+        })
+
+        function validateInputs(){
+            const usernameVal = username.value.trim()
+            const passwordVal = password.value.trim();
+            let errormsg = document.querySelector('#error');
+            let success = true;
+
+            if(usernameVal===''){
+                success=false;
+                setError('Username is required');
+            }
+
+            if(passwordVal === ''){
+                success= false;
+                setError('Password is required');
+            }
+            else if(passwordVal.length < 8){
+                success = false;
+                setError('Password must be atleast 8 characters long');
+            }
+
+            return success;
+        }
+
+        function setError(message){
+            errormsg.classList.add('error');
+            errormsg.textContent = message;
+        }
+
+        function setSuccess(){
+            errormsg.textContent = '';
+            errormsg.classList.remove('error');
+            const popup = document.getElementById("popup");
+            popupFade(popup);
+        }
+
+    </script>
+  </body>
+</html>

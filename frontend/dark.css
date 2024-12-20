@@ -1,0 +1,115 @@
+:root {
+    --main-color: #ccc;
+    --main-accent: rgb(98, 0, 255);
+}
+
+* {
+    color: var(--main-color);
+    font-size: 1rem;
+}
+
+html, body {
+    background-color: rgb(49, 49, 50);
+}
+
+.footer, .push {
+    background-color: rgb(49, 49, 50);
+}
+
+h1{
+    font-size: 2rem;
+    color: var(--main-color);
+}
+
+.maintitle{
+    background-color: var(--main-accent);
+    color: var(--main-color);
+}
+
+.maintitle2{
+    color: var(--main-color);
+}
+
+input[type="text"]{
+    color: var(--main-color);
+    color: black;
+}
+
+.loggedInText{
+    color: white;
+}
+
+input[type="password"]{
+    color: var(--main-color);
+    color: black;
+}
+
+select{
+    background-color: var(--main-accent);
+}
+
+.item{
+    color: var(--main-color);
+    background-color: rgb(49, 49, 50);
+}
+
+.item > h2{
+    color: var(--main-color);
+}
+
+.item > label{
+    color: var(--main-color);
+}
+
+pre{
+    color: var(--main-color);
+    background-color: rgb(82, 82, 82);
+}
+
+.prelink {
+    color: var(--main-color);
+}
+
+.prelink:hover{
+    color: var(--main-accent);
+}
+
+a{
+    color: var(--main-color);
+}
+
+a:hover{
+    color: var(--main-accent);
+}
+
+html{
+    background-color: rgb(49, 49, 50);
+}
+
+button{
+    background-color: var(--main-accent);
+}
+
+input::file-selector-button {
+    color: var(--main-color);
+    background-color: var(--main-accent);
+}
+
+.buttonContainer{
+    color: var(--main-color);
+}
+
+.contentContainer > * {
+    color: black;
+}
+
+.successPopup {
+    background-color: var(--main-accent);
+    color: white;
+}
+
+.successPopup2 {
+    background-color: var(--main-accent);
+    color: white;
+    padding: 20px;
+}
